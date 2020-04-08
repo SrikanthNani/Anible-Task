@@ -1,0 +1,19 @@
+# inventory.compute.gcp.yml
+  plugin: gcp_compute
+#  zones: # populate inventory with instances in these regions
+#   - us-east1-a
+  projects:
+    - stable-journal-229410
+#  groups:
+#     apache-servers: "'host' in name"
+# filters:
+#    - machineType = n1-standard-1
+#   - scheduling.automaticRestart = true AND machineType = n1-standard-1
+  service_account_file: /home/test/stable-journal-229410-27de6b8f9d23.json
+  auth_kind: serviceaccount
+  keyed_groups:
+    # Create groups from Google Compute Engine labels
+    - key: labels
+      separator: ""
+  hostnames:
+    - private_ip 

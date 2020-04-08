@@ -1,0 +1,6 @@
+---
+- name: Playbook to uninstall httpd
+  hosts: apache_servers
+  tasks:
+    - name: Uninstall apache
+      yum: name=httpd state=removed

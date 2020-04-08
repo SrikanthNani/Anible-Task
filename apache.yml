@@ -1,0 +1,22 @@
+---
+- hosts: vmapache_server
+  become: yes
+  tasks:
+    - name: Install apache
+      yum: name=httpd state=latest
+
+    - name: Start service httpd, if not started
+      service: name=httpd enabled=yes state=started
+
+    - name: passing the output of the command to the variable(host) using register
+      command: hostname
+      register: host
+
+    - name: This is to pass the hostname dynamically to the httpd.conf
+      template: src=/home/test/httpd.conf dest=/etc/httpd/conf/httpd.conf force=yes
+
+    - name: This is to update the index.html
+      template: src=/home/test/index.html dest=/var/www/html/index.html force=yes
+
+    - debug:
+        var: host.stdout
